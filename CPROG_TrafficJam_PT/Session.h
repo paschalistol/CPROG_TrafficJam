@@ -18,6 +18,8 @@ namespace jam {
 		void run();
 		void addCar();
 		~Session();
+		void setStartLane(int);
+		Lane* getLane(int);
 	private:
 		std::vector<Vehicle*> vehicles;
 		std::vector<Component*> comps;
@@ -27,6 +29,7 @@ namespace jam {
 		int delay;
 		const int tickInterval;
 		int playerInLane = 1;
+		int startLane ;
 	};
 } //jam
 

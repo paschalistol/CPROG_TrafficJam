@@ -129,6 +129,13 @@ namespace jam
 		} //outter
 
 	}
+	Lane* Session::getLane(int no) {
+		return lanes[no];
+	}
+	void Session::setStartLane(int no) {
+		startLane = no;
+		playerInLane = no;
+	}
 	Session::~Session()
 	{
 		for (Component* c : comps)
