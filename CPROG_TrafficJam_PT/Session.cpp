@@ -3,6 +3,8 @@
 #include "System.h"
 #include "Car.h"
 #include <chrono>
+
+#define TIME_PER_VEHICLE 1.9
 using namespace std;
 namespace jam
 {
@@ -40,7 +42,7 @@ namespace jam
 			auto end = sc.now();
 			auto time_span = static_cast<std::chrono::duration<double>>(end - start);
 
-			if (time_span.count() > sec * 1.3)
+			if (time_span.count() > sec * TIME_PER_VEHICLE)
 			{
 				sec++;
 				addCar();
@@ -73,7 +75,7 @@ namespace jam
 							if (playerInLane +1 < lanes.size())
 							{
 
-							c->moveY(100);
+							c->moveY(playerMovementY);
 							playerInLane++;
 							}
 						}
@@ -84,7 +86,7 @@ namespace jam
 						{
 							if (playerInLane != 0)
 							{
-							c->moveY(-100);
+							c->moveY(-playerMovementY);
 							playerInLane--;
 							}
 						}
@@ -148,6 +150,9 @@ namespace jam
 	void Session::setStartLane(int no) {
 		startLane = no;
 		playerInLane = no;
+	}
+	void Session::setPlayerMovementY(int dif) {
+		playerMovementY = dif;
 	}
 	Session::~Session()
 	{

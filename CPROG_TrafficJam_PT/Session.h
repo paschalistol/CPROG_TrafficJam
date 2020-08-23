@@ -20,6 +20,7 @@ namespace jam {
 		~Session();
 		void setStartLane(int);
 		Lane* getLane(int);
+		void setPlayerMovementY(int);
 	private:
 		std::vector<Vehicle*> vehicles;
 		std::vector<Component*> comps;
@@ -30,6 +31,7 @@ namespace jam {
 		const int tickInterval;
 		int playerInLane = 1;
 		int startLane ;
+		int playerMovementY;
 	};
 } //jam
 

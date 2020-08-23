@@ -52,7 +52,9 @@ int main(int argc, char** argv) {
 	//Button* b = new MyButton(ses);
 
 	//ses.add(b);
-	int startLane = 2;
+	int startLane = 0;
+	int playerHeight = LANE_HEIGHT / 2;
+	ses.setPlayerMovementY(LANE_HEIGHT + LANE_Y_DIF);
 	ses.setStartLane(startLane);
 	Lane* lane1 = Lane::getInstance(LANE_X, LANE_Y_START , LANE_WIDTH, LANE_HEIGHT, 255,0,100,255);
 	Lane* lane2 = Lane::getInstance(LANE_X, LANE_Y_START + LANE_Y_DIF + LANE_HEIGHT, LANE_WIDTH, LANE_HEIGHT, 100,200,0,255);
@@ -62,7 +64,7 @@ int main(int argc, char** argv) {
 	ses.addLane(lane3);
 	Session& sref = ses;
 	Lane* lref = ses.getLane(startLane);
-	Player* player = Player::getInstance(LANE_WIDTH, lref->getY(),100 ,LANE_HEIGHT/2, sref);
+	Player* player = Player::getInstance(LANE_WIDTH, lref->getY() + LANE_HEIGHT - playerHeight,100 ,playerHeight, sref);
 
 	ses.add(player);
 
