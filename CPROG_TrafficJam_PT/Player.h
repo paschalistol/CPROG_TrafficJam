@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Session.h"
 #include "Component.h"
+#include "Stone.h"
 #include <SDL.h>
 namespace jam {
 
@@ -9,11 +9,12 @@ namespace jam {
 	{
 	public:
 		~Player();
-		static Player* getInstance(int x, int y, int w, int h, Session& ses);
+		static Player* getInstance(int x, int y, int w, int h);
 		void draw() const;
 		void moveY(int);
+		Stone* throwStone();
 	protected:
-		Player(int x, int y, int w, int h,  Session& ses);
+		Player(int x, int y, int w, int h);
 	private:
 		SDL_Texture* playerAvatar;
 	};

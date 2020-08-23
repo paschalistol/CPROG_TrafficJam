@@ -64,10 +64,9 @@ int main(int argc, char** argv) {
 	ses.addLane(lane3);
 	Session& sref = ses;
 	Lane* lref = ses.getLane(startLane);
-	Player* player = Player::getInstance(LANE_WIDTH, lref->getY() + LANE_HEIGHT - playerHeight,100 ,playerHeight, sref);
-
+	Player* player = Player::getInstance(LANE_WIDTH, lref->getY() + LANE_HEIGHT - playerHeight,100 ,playerHeight);
+	//ses.definePlayer(player);
 	ses.add(player);
-
 	ses.run();
 	return 0;
 }

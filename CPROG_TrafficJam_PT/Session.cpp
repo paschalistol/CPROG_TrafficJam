@@ -11,6 +11,11 @@ namespace jam
 	Session::Session(int t) : tickInterval(1000 / t) {
 
 	}
+	void Session::addStone() {
+		Stone* stone;
+		stone = player->throwStone();
+		stones.push_back(stone);
+	}
 	void Session::addCar() {
 		Vehicle* car;
 		car = Car::getInstance(-2, *lanes[rand() % lanes.size()]);
@@ -22,6 +27,9 @@ namespace jam
 	void Session::add(Component* c)
 	{
 		comps.push_back(c);
+	}
+	void Session::definePlayer(Player* pl) {
+		player = pl;
 	}
 	//void Session::remove(Component* c)
 	//{
@@ -91,18 +99,21 @@ namespace jam
 							}
 						}
 						break;
+					case SDLK_SPACE:
+						addStone();
+						break;
 					}
-					for (Component* c : comps)
-					{
-						c->keyDown(event);
-					}
-					break;
-				case SDL_KEYUP:
-					for (Component* c : comps)
-					{
-						c->keyUp(event);
-					}
-					break;
+					//for (Component* c : comps)
+					//{
+					//	c->keyDown(event);
+					//}
+				//	break;
+				//case SDL_KEYUP:
+				//	for (Component* c : comps)
+				//	{
+				//		c->keyUp(event);
+				//	}
+				//	break;
 				} //switch
 			}	//inner
 
@@ -125,13 +136,18 @@ namespace jam
 
 
 			SDL_RenderClear(sys.getRen());
+			for (Lane* l : lanes)
+			{
+				l->draw();
+			}
 			for (Component* c : comps)
 			{
 				c->draw();
 			}
-			for (Lane* l : lanes)
+			for ( Stone* s : stones)
 			{
-				l->draw();
+				s->stoneMovement();
+				s->draw();
 			}
 			for (Vehicle* v : vehicles)
 			{

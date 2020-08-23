@@ -142,6 +142,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Truck.cpp" />
     <ClCompile Include="Vehicle.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Truck.h" />
     <ClInclude Include="Vehicle.h" />
