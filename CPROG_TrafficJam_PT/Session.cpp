@@ -11,7 +11,7 @@ namespace jam
 	}
 	void Session::addCar() {
 		Vehicle* car;
-		car = Car::getInstance(-2, *lanes[1]);
+		car = Car::getInstance(-2, *lanes[rand() % lanes.size()]);
 		vehicles.push_back(car);
 	}
 	void Session::addLane(Lane* l) {
@@ -30,10 +30,23 @@ namespace jam
 		SDL_SetRenderDrawColor(sys.getRen(), 255, 255, 255, 255);
 		bool quit = false;
 		std::chrono::steady_clock sc;
+		auto start = sc.now();
+		int sec = 0;
 		while (!quit)
 		{
 			nextTick = SDL_GetTicks() + tickInterval;
 			SDL_Event event;
+
+			auto end = sc.now();
+			auto time_span = static_cast<std::chrono::duration<double>>(end - start);
+
+			if (time_span.count() > sec * 1.3)
+			{
+				sec++;
+				addCar();
+			}
+
+
 			while (SDL_PollEvent(&event)) {
 				switch (event.type)
 				{

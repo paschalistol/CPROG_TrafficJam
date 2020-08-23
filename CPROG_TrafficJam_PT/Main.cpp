@@ -66,7 +66,6 @@ int main(int argc, char** argv) {
 
 	ses.add(player);
 
-	ses.addCar();
 	ses.run();
 	return 0;
 }
