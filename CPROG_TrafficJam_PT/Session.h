@@ -39,6 +39,10 @@ namespace jam {
 		Player* player;
 		void collisionDetection();
 		bool collision(SDL_Rect, SDL_Rect);
+		void checkOutOfBounds();
+		bool outOfBounds(SDL_Rect);
+		void removeStone(int);
+		void removeVehicle(int);
 	};
 } //jam
 

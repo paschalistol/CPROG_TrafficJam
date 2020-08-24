@@ -1,6 +1,7 @@
 #include "Car.h"
 #include <SDL_image.h>
 #include "System.h"
+#include <iostream>
 namespace jam {
 	Car::Car(double speed, Lane& lane) : Vehicle(speed, lane){
 		texture = IMG_LoadTexture(sys.getRen(), "../Resources/car.png");
@@ -13,6 +14,7 @@ namespace jam {
 	}
 	Car::~Car() {
 		SDL_DestroyTexture(texture);
+		std::cout << "deleted car";
 	}
 	Vehicle* Car::getInstance(double speed, Lane& lane) {
 		return (new Car(speed, lane));

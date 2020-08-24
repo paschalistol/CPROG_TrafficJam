@@ -3,7 +3,7 @@
 #include "System.h"
 #include "Car.h"
 #include <chrono>
-
+#include <iostream>
 #define TIME_PER_VEHICLE 1.9
 using namespace std;
 namespace jam
@@ -19,8 +19,8 @@ namespace jam
 			return;
 		}
 		else
-		stones.push_back(stone);
-		
+			stones.push_back(stone);
+
 	}
 	void Session::addCar() {
 		Vehicle* car;
@@ -85,23 +85,23 @@ namespace jam
 					case (SDLK_DOWN):
 					case SDLK_s:
 
-							if (playerInLane +1 < lanes.size())
-							{
+						if (playerInLane + 1 < lanes.size())
+						{
 
 							player->moveY(playerMovementY);
 							playerInLane++;
-							}
+						}
 
 						break;
 					case (SDLK_UP):
 					case SDLK_w:
 
-							if (playerInLane != 0)
-							{
+						if (playerInLane != 0)
+						{
 							player->moveY(-playerMovementY);
 							playerInLane--;
-							
-							}
+
+						}
 						break;
 					case SDLK_SPACE:
 						addStone();
@@ -148,7 +148,7 @@ namespace jam
 			{
 				c->draw();
 			}
-			for ( Stone* s : stones)
+			for (Stone* s : stones)
 			{
 				s->stoneMovement();
 				s->draw();
@@ -161,7 +161,7 @@ namespace jam
 			}
 
 			collisionDetection();
-
+			checkOutOfBounds();
 			SDL_RenderPresent(sys.getRen());
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0) { SDL_Delay(delay); }
@@ -169,22 +169,29 @@ namespace jam
 
 	}
 	void Session::collisionDetection() {
-		for (int s = 0; s < stones.size() ; s++)
+		for (int s = 0; s < stones.size(); s++)
 		{
 			for (int v = 0; v < vehicles.size(); v++) {
 				if (collision(stones[s]->getRect(), vehicles[v]->getRect())) {
-					Stone* st = stones[s];
-					stones.erase(stones.begin() + s);
-					delete st;
-					Vehicle* ve = vehicles[v];
-					vehicles.erase(vehicles.begin() + v);
-					delete ve;
+
+					removeStone(s);
+					removeVehicle(v);
 					break;
 				}
 			}
 		}
 	}
-	bool Session::collision(SDL_Rect stone, SDL_Rect vehicle){
+	void Session::removeStone(int s) {
+		Stone* st = stones[s];
+		stones.erase(stones.begin() + s);
+		delete st;
+	}
+	void Session::removeVehicle(int v) {
+		Vehicle* ve = vehicles[v];
+		vehicles.erase(vehicles.begin() + v);
+		delete ve;
+	}
+	bool Session::collision(SDL_Rect stone, SDL_Rect vehicle) {
 		if (stone.y >= vehicle.y + vehicle.h)
 		{
 			return 0;
@@ -209,6 +216,58 @@ namespace jam
 	}
 	void Session::setPlayerMovementY(int dif) {
 		playerMovementY = dif;
+	}
+	void Session::checkOutOfBounds() {
+		if (!stones.empty())
+		{
+
+			for (int s = 0; s < stones.size(); s++)
+			{
+				if (outOfBounds(stones[s]->getRect()))
+				{
+
+					removeStone(s);
+					break;
+				}
+			}
+		}
+		if (!vehicles.empty())
+		{
+
+			for (int v = 0; v < vehicles.size(); v++) {
+				if (outOfBounds(vehicles[v]->getRect()))
+				{
+					removeVehicle(v);
+					break;
+				}
+			}
+		}
+	}
+	bool Session::outOfBounds(SDL_Rect rect) {
+		if (rect.x + rect.w < -0)
+		{
+
+			return 1;
+		}
+		if (rect.y + rect.h < -0)
+		{
+			return 1;
+
+		}
+		int w, h;
+		SDL_GetRendererOutputSize(sys.getRen(), &w, &h);
+		if (rect.x > w)
+		{
+
+			return 1;
+		}
+		if (rect.y > h)
+		{
+
+			return 1;
+		}
+
+		return 0;
 	}
 	Session::~Session()
 	{

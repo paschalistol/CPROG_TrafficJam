@@ -13,7 +13,6 @@ namespace jam {
 		static Stone* getInstance(int x, int y, int w, int h, int s);
 		void draw() const;
 		void stoneMovement();
-		void destroyBullet();
 		~Stone();
 	protected:
 		Stone(int x, int y, int w, int h, int s);

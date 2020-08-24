@@ -1,7 +1,7 @@
 #include "Stone.h"
 #include <SDL_image.h>
 #include "System.h"
-
+#include <iostream>
 namespace jam {
 	Stone* Stone::getInstance(int x, int y, int w, int h, int s) {
 		return new Stone(x, y, w, h, s);
@@ -16,12 +16,6 @@ namespace jam {
 	}
 
 
-	void Stone::destroyBullet()
-	{
-		/*if(outOfGame())*/
-		SDL_DestroyTexture(stoneTexture);
-	}
-
 	void Stone::stoneMovement()
 	{
 		changeX(-stoneSpeed);
@@ -29,6 +23,7 @@ namespace jam {
 
 	Stone::~Stone()
 	{
+		std::cout << "stone";
 		SDL_DestroyTexture(stoneTexture);
 	}
 }
