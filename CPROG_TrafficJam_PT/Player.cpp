@@ -2,7 +2,6 @@
 #include "System.h"
 #include <SDL_image.h>
 #include <SDL_rect.h>
-#include <iostream>
 #include "Session.h"
 namespace jam {
 	Player* Player::getInstance(int x, int y, int w, int h, int r) {

@@ -37,6 +37,8 @@ namespace jam {
 		int startLane ;
 		int playerMovementY;
 		Player* player;
+		void collisionDetection();
+		bool collision(SDL_Rect, SDL_Rect);
 	};
 } //jam
 

@@ -159,11 +159,46 @@ namespace jam
 				v->moveVehicle();
 				v->draw();
 			}
+
+			collisionDetection();
+
 			SDL_RenderPresent(sys.getRen());
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0) { SDL_Delay(delay); }
 		} //outter
 
+	}
+	void Session::collisionDetection() {
+		for (int s = 0; s < stones.size() ; s++)
+		{
+			for (int v = 0; v < vehicles.size(); v++) {
+				if (collision(stones[s]->getRect(), vehicles[v]->getRect())) {
+					Stone* st = stones[s];
+					stones.erase(stones.begin() + s);
+					delete st;
+					Vehicle* ve = vehicles[v];
+					vehicles.erase(vehicles.begin() + v);
+					delete ve;
+					break;
+				}
+			}
+		}
+	}
+	bool Session::collision(SDL_Rect stone, SDL_Rect vehicle){
+		if (stone.y >= vehicle.y + vehicle.h)
+		{
+			return 0;
+		}
+		if (stone.x >= vehicle.x + vehicle.w) {
+			return 0;
+		}
+		if (stone.y + stone.h <= vehicle.y) {
+			return 0;
+		}
+		if (stone.x + stone.w <= vehicle.x) {
+			return 0;
+		}
+		return 1;
 	}
 	Lane* Session::getLane(int no) {
 		return lanes[no];
