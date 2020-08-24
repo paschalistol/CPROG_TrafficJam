@@ -14,7 +14,13 @@ namespace jam
 	void Session::addStone() {
 		Stone* stone;
 		stone = player->throwStone();
+		if (stone == nullptr) {
+			delete stone;
+			return;
+		}
+		else
 		stones.push_back(stone);
+		
 	}
 	void Session::addCar() {
 		Vehicle* car;
@@ -78,26 +84,24 @@ namespace jam
 					{
 					case (SDLK_DOWN):
 					case SDLK_s:
-						for (Component* c : comps)
-						{
+
 							if (playerInLane +1 < lanes.size())
 							{
 
-							c->moveY(playerMovementY);
+							player->moveY(playerMovementY);
 							playerInLane++;
 							}
-						}
+
 						break;
 					case (SDLK_UP):
 					case SDLK_w:
-						for (Component* c : comps)
-						{
+
 							if (playerInLane != 0)
 							{
-							c->moveY(-playerMovementY);
+							player->moveY(-playerMovementY);
 							playerInLane--;
+							
 							}
-						}
 						break;
 					case SDLK_SPACE:
 						addStone();
@@ -116,7 +120,7 @@ namespace jam
 				//	break;
 				} //switch
 			}	//inner
-
+			player->addReloadCount();
 			//for (Component* c : added) {
 			//	comps.push_back(c);
 			//}
@@ -149,6 +153,7 @@ namespace jam
 				s->stoneMovement();
 				s->draw();
 			}
+			player->draw();
 			for (Vehicle* v : vehicles)
 			{
 				v->moveVehicle();
@@ -184,5 +189,6 @@ namespace jam
 		{
 			delete c;
 		}
+		delete player;
 	}
 } //jam

@@ -1,5 +1,4 @@
 #include "Component.h"
-#include <SDL.h>
 #include "System.h"
 namespace jam {
 	Component::Component(int x, int y, int w, int h) :rect{x,y,w,h}

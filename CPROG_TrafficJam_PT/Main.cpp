@@ -20,6 +20,7 @@
 #define LANE_Y_START 60
 #define LANE_Y_DIF 5
 #define FPS 60
+#define THROW_SPEED 30
 
 using namespace std;
 using namespace jam;
@@ -64,9 +65,8 @@ int main(int argc, char** argv) {
 	ses.addLane(lane3);
 	Session& sref = ses;
 	Lane* lref = ses.getLane(startLane);
-	Player* player = Player::getInstance(LANE_WIDTH, lref->getY() + LANE_HEIGHT - playerHeight,100 ,playerHeight);
-	//ses.definePlayer(player);
-	ses.add(player);
+	Player* player = Player::getInstance(LANE_WIDTH, lref->getY() + LANE_HEIGHT - playerHeight,100 ,playerHeight, THROW_SPEED );
+	ses.definePlayer(player);
 	ses.run();
 	return 0;
 }
